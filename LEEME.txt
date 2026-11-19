@@ -1,0 +1,41 @@
+HOTEL DUVANCHU'S — DEMO HTML, CSS Y JAVASCRIPT
+
+Esta es la segunda demo (la de fotografías de fondo), con los botones móviles corregidos.
+No requiere React, TypeScript, Tailwind, Vite, npm ni compilación.
+
+ABRIR
+1. Extrae todo el ZIP en una carpeta.
+2. Abre index.html con tu navegador.
+3. Mantén los archivos juntos y con sus nombres originales.
+
+EDITAR
+- index.html: textos, enlaces, fotografías, servicios y estructura.
+- styles.css: colores, tipografías, tamaños y adaptación a celular.
+- script.js: menú, carrusel, consulta de fechas y galería.
+- favicon.png: icono de la pestaña.
+
+El JavaScript está comentado por secciones. Los iconos SVG incluidos en el HTML
+se pueden dejar tal como están. No necesitas instalarlos.
+
+FOTOGRAFÍAS Y FUENTES
+Las fotografías se cargan desde Unsplash y las fuentes desde Google Fonts.
+Por eso requieren conexión a Internet. Siguen siendo imágenes de referencia;
+no se han sustituido por fotografías confirmadas del hotel.
+Para usar fotos propias, guárdalas en una carpeta imagenes y cambia el atributo
+src de las imágenes correspondientes en index.html por imagenes/nombre.jpg.
+Actualiza también sus textos alt y etiquetas. El carrusel y el visor leen esos
+datos directamente del HTML.
+
+CONSULTAS
+El formulario valida fechas y prepara un enlace a WhatsApp. No confirma una
+reserva, no consulta inventario y no cobra. El envío final lo hace el visitante
+desde WhatsApp. El número del hotel y ese canal deben confirmarse antes de publicar.
+
+PUBLICAR
+Sube index.html, styles.css, script.js y favicon.png juntos a un alojamiento
+de sitios estáticos. Esta carpeta no actualiza automáticamente la demo de Figma.
+
+COMPROBACIONES
+Revisión de sintaxis JavaScript y pruebas en navegador de menú, carrusel,
+consulta, resumen y galería, con tamaños móviles y escritorio.
+La simulación de tamaño móvil no sustituye una prueba en un iPhone físico.

@@ -1,3 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap");
+
+/* Base del documento: reemplaza los estilos que antes aportaba Tailwind. */
+:root { --wine: #651c2b; --ivory: #faf7f1; --sand: #e9dfd1; --gold: #b79561; --ink: #292524; }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-width: 320px; background: var(--ivory); color: var(--ink); font: 16px/1.6 Inter, sans-serif; }
+h1, h2, h3, p, figure, dl, dd { margin: 0; }
+h1, h2, h3 { font-family: Lora, serif; font-weight: 500; line-height: 1.05; letter-spacing: -0.04em; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+svg { display: block; vertical-align: middle; }
+img { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+[hidden] { display: none !important; }
+
+/* Diseño de la demo, incluida la corrección de botones móviles. */
 .demo-two {
   --wine: #651c2b;
   --ivory: #faf7f1;
@@ -218,6 +237,8 @@
   gap: 26px;
 }
 .d2-button {
+  max-width: 100%;
+  text-align: center;
   min-height: 50px;
   padding: 0 22px;
   display: inline-flex;
@@ -236,8 +257,14 @@
     background 0.2s;
 }
 .d2-button:hover {
-  transform: translateY(-2px);
   background: #4d1521;
+}
+.d2-button svg,
+.d2-menu-toggle {
+  flex-shrink: 0;
+}
+.demo-two [id] {
+  scroll-margin-top: 86px;
 }
 .d2-text-link {
   min-height: 44px;
@@ -820,9 +847,12 @@
   backdrop-filter: blur(5px);
 }
 .d2-summary {
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   position: relative;
   width: min(560px, 100%);
-  padding: 42px;
+  padding: 70px 42px 42px;
   background: var(--ivory);
   text-align: center;
 }
@@ -942,6 +972,9 @@
     display: grid;
   }
   .d2-mobile-menu {
+    max-height: calc(100dvh - 82px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     display: grid;
     padding: 16px 24px 25px;
     background: var(--ivory);
@@ -1006,7 +1039,10 @@
     font-size: 18px;
   }
   .d2-hero {
-    min-height: 980px;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 18px;
   }
   .d2-hero-content {
     width: calc(100% - 36px);
@@ -1032,27 +1068,33 @@
     justify-content: center;
   }
   .d2-carousel-ui {
-    left: 18px;
-    right: 18px;
-    bottom: 390px;
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin: 28px 18px 24px;
+    flex-wrap: wrap;
   }
   .d2-carousel-ui > button {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
   }
   .d2-dots button {
     width: 23px;
   }
   .d2-photo-status {
-    position: absolute;
-    left: 0;
-    top: 48px;
+    position: static;
+    flex-basis: 100%;
+    width: fit-content;
     margin: 0;
   }
   .d2-booking-panel {
-    left: 18px;
-    right: 18px;
-    bottom: 18px;
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin: 0 18px;
     width: auto;
     transform: none;
     padding: 18px;
@@ -1060,6 +1102,13 @@
   .d2-stay-form {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+  .d2-stay-form input,
+  .d2-stay-form select {
+    font-size: 16px;
+  }
+  .d2-stay-form label {
+    min-width: 0;
   }
   .d2-stay-form label > small {
     position: static;
@@ -1165,7 +1214,12 @@
     padding: 55px 20px 25px;
   }
   .d2-summary {
-    padding: 38px 20px;
+    padding: 70px 20px 28px;
+  }
+  .d2-summary dl div {
+    gap: 12px;
+    flex-wrap: wrap;
+    text-align: left;
   }
   .d2-summary h2 {
     font-size: 32px;
@@ -1203,4 +1257,20 @@
   .d2-gallery-item img {
     transition: none;
   }
+}
+
+
+/* Comportamientos de la versión HTML. */
+.dialog-open { overflow: hidden; }
+.d2-reveal { opacity: 1; transform: none; }
+.d2-reveal.reveal-ready:not(.d2-visible) { opacity: 0; transform: translateY(16px); }
+.carousel-paused .d2-slide-active img { animation-play-state: paused; }
+.d2-viewer > img { width: 100%; height: 100%; object-fit: contain; }
+.d2-summary { color: var(--ink); }
+.d2-stay-form input:focus-visible, .d2-stay-form select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.d2-stay-form label > div > svg { flex-shrink: 0; }
+@media (hover: hover) and (pointer: fine) { .d2-button:hover { transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .d2-reveal.reveal-ready:not(.d2-visible) { opacity: 1; transform: none; }
 }
