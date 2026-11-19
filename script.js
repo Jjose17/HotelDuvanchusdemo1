@@ -61,19 +61,27 @@ function showSlide(index) {
   slides.forEach((slide, i) => {
     slide.classList.toggle("d2-slide-active", i === active);
     slide.setAttribute("aria-hidden", String(i !== active));
-    select("img", slide).alt = i === active ? photos[i].alt : "";
-    dots[i].classList.toggle("active", i === active);
-    dots[i].setAttribute("aria-pressed", String(i === active));
+    const img = select("img", slide);
+    if (img) img.alt = i === active ? photos[i]?.alt || "" : "";
+    if (dots[i]) {
+      dots[i].classList.toggle("active", i === active);
+      dots[i].setAttribute("aria-pressed", String(i === active));
+    }
   });
-  select(".d2-dots").setAttribute("aria-label", `Diapositiva ${active + 1} de ${slides.length}`);
-  select(".d2-photo-status").textContent = photos[active].label;
+  const dotsContainer = select(".d2-dots");
+  if (dotsContainer) dotsContainer.setAttribute("aria-label", `Diapositiva ${active + 1} de ${slides.length}`);
+  const status = select(".d2-photo-status");
+  if (status && photos[active]) status.textContent = photos[active].label;
 }
 function updatePlayback() {
   clearInterval(timer);
   hero.classList.toggle("carousel-paused", paused);
-  pauseButton.setAttribute("aria-label", paused ? "Reproducir carrusel" : "Pausar carrusel");
-  pauseButton.setAttribute("aria-pressed", String(paused));
-  select("path", pauseButton).setAttribute("d", paused ? "m9 7 8 5-8 5Z" : "M9 7v10M15 7v10");
+  if (pauseButton) {
+    pauseButton.setAttribute("aria-label", paused ? "Reproducir carrusel" : "Pausar carrusel");
+    pauseButton.setAttribute("aria-pressed", String(paused));
+    const path = select("path", pauseButton);
+    if (path) path.setAttribute("d", paused ? "m9 7 8 5-8 5Z" : "M9 7v10M15 7v10");
+  }
   if (!paused && !document.hidden) timer = setInterval(() => showSlide(active + 1), 6000);
 }
 function manualSlide(index) {
@@ -81,13 +89,17 @@ function manualSlide(index) {
   showSlide(index);
   updatePlayback();
 }
-select('[aria-label="Fotografía anterior"]', hero).addEventListener("click", () => manualSlide(active - 1));
-select('[aria-label="Fotografía siguiente"]', hero).addEventListener("click", () => manualSlide(active + 1));
+const prevBtn = select('[aria-label="Fotografía anterior"]', hero);
+if (prevBtn) prevBtn.addEventListener("click", () => manualSlide(active - 1));
+const nextBtn = select('[aria-label="Fotografía siguiente"]', hero);
+if (nextBtn) nextBtn.addEventListener("click", () => manualSlide(active + 1));
 dots.forEach((dot, index) => dot.addEventListener("click", () => manualSlide(index)));
-pauseButton.addEventListener("click", () => { paused = !paused; updatePlayback(); });
-hero.addEventListener("focusin", event => {
-  if (!pauseButton.contains(event.target)) { paused = true; updatePlayback(); }
-});
+if (pauseButton) {
+  pauseButton.addEventListener("click", () => { paused = !paused; updatePlayback(); });
+  hero.addEventListener("focusin", event => {
+    if (!pauseButton.contains(event.target)) { paused = true; updatePlayback(); }
+  });
+}
 document.addEventListener("visibilitychange", updatePlayback);
 reducedMotion.addEventListener("change", () => {
   if (reducedMotion.matches) paused = true;

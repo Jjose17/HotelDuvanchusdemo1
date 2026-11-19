@@ -276,6 +276,7 @@ img { max-width: 100%; }
   font-weight: 600;
 }
 .d2-carousel-ui {
+  display: none;
   position: absolute;
   left: clamp(24px, 5vw, 72px);
   bottom: 168px;
