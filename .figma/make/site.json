@@ -1,0 +1,11 @@
+{
+  "title": "demowebDuvanchus",
+  "description": "Ayuda a viajeros a conocer habitaciones y servicios del Hotel Duvanchu’s, encontrar su ubicación y consultar disponibilidad para su estadía en Chiquinquirá.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
